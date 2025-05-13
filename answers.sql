@@ -15,18 +15,18 @@ FROM
 -- create new table, orders and products, extract necessary entires from OrderDetails. 
 
 CREATE TABLE Orders(OrderId INT PRIMARY KEY, 
-CustomerNAme VARCHAR(50),
-Quantity INT);
+CustomerNAme VARCHAR(50));
 
-INSERT INTO Orders(OrderID, CustomerName, Quantity)
-SELECT DISTINCT OrderID, CustomerName, Quantity
+INSERT INTO Orders(OrderID, CustomerName)
+SELECT DISTINCT OrderID, CustomerName
 FROM OrderDetails;
 
 CREATE TABLE Products(OrderId INT, 
 ProductName VARCHAR(80),
+Quantity INT,
 PRIMARY KEY(OrderId, ProductName),
 FOREIGN KEY(OrderID) REFERENCES Orders(OrderId));
 
-INSERT INTO Products(OrderID, ProductName)
-SELECT DISTINCT OrderID, ProductName
+INSERT INTO Products(OrderID, ProductName, Quantity)
+SELECT DISTINCT OrderID, ProductName,Quantity
 FROM OrderDetails;
